@@ -38,6 +38,18 @@
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
+       <property name="minimumSize">
+        <size>
+         <width>256</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="baseSize">
+        <size>
+         <width>256</width>
+         <height>0</height>
+        </size>
+       </property>
       </widget>
      </item>
      <item>
@@ -50,16 +62,16 @@
      <item>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <widget class="QTableView" name="recipe_tableView_2"/>
+        <widget class="QTableView" name="recipe_tableView"/>
        </item>
        <item>
-        <widget class="QTableView" name="ingredients_tableView_3"/>
+        <widget class="QTableView" name="ingredients_tableView"/>
        </item>
        <item>
-        <widget class="QTableView" name="instructions_tableView_4"/>
+        <widget class="QTableView" name="instructions_tableView"/>
        </item>
        <item>
-        <widget class="QTableView" name="comments_tableView_5"/>
+        <widget class="QTableView" name="comments_tableView"/>
        </item>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_2">

@@ -37,10 +37,10 @@ public:
     QTableView *list_tableView;
     QFrame *line;
     QVBoxLayout *verticalLayout;
-    QTableView *recipe_tableView_2;
-    QTableView *ingredients_tableView_3;
-    QTableView *instructions_tableView_4;
-    QTableView *comments_tableView_5;
+    QTableView *recipe_tableView;
+    QTableView *ingredients_tableView;
+    QTableView *instructions_tableView;
+    QTableView *comments_tableView;
     QHBoxLayout *horizontalLayout_2;
     QSpacerItem *horizontalSpacer;
     QPushButton *pushButton;
@@ -71,6 +71,8 @@ public:
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(list_tableView->sizePolicy().hasHeightForWidth());
         list_tableView->setSizePolicy(sizePolicy);
+        list_tableView->setMinimumSize(QSize(256, 0));
+        list_tableView->setBaseSize(QSize(256, 0));
 
         horizontalLayout->addWidget(list_tableView);
 
@@ -84,25 +86,25 @@ public:
         verticalLayout = new QVBoxLayout();
         verticalLayout->setSpacing(6);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-        recipe_tableView_2 = new QTableView(horizontalLayoutWidget);
-        recipe_tableView_2->setObjectName(QStringLiteral("recipe_tableView_2"));
+        recipe_tableView = new QTableView(horizontalLayoutWidget);
+        recipe_tableView->setObjectName(QStringLiteral("recipe_tableView"));
 
-        verticalLayout->addWidget(recipe_tableView_2);
+        verticalLayout->addWidget(recipe_tableView);
 
-        ingredients_tableView_3 = new QTableView(horizontalLayoutWidget);
-        ingredients_tableView_3->setObjectName(QStringLiteral("ingredients_tableView_3"));
+        ingredients_tableView = new QTableView(horizontalLayoutWidget);
+        ingredients_tableView->setObjectName(QStringLiteral("ingredients_tableView"));
 
-        verticalLayout->addWidget(ingredients_tableView_3);
+        verticalLayout->addWidget(ingredients_tableView);
 
-        instructions_tableView_4 = new QTableView(horizontalLayoutWidget);
-        instructions_tableView_4->setObjectName(QStringLiteral("instructions_tableView_4"));
+        instructions_tableView = new QTableView(horizontalLayoutWidget);
+        instructions_tableView->setObjectName(QStringLiteral("instructions_tableView"));
 
-        verticalLayout->addWidget(instructions_tableView_4);
+        verticalLayout->addWidget(instructions_tableView);
 
-        comments_tableView_5 = new QTableView(horizontalLayoutWidget);
-        comments_tableView_5->setObjectName(QStringLiteral("comments_tableView_5"));
+        comments_tableView = new QTableView(horizontalLayoutWidget);
+        comments_tableView->setObjectName(QStringLiteral("comments_tableView"));
 
-        verticalLayout->addWidget(comments_tableView_5);
+        verticalLayout->addWidget(comments_tableView);
 
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setSpacing(6);

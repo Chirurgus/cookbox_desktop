@@ -13,10 +13,14 @@ public:
 	MainWindow(QWidget *parent = Q_NULLPTR);
 	virtual ~MainWindow();
 
+protected slots:
+	void onRecipeSelected(const QModelIndex &current, const QModelIndex &previous);
+
 private:
 	Ui::MainWindowClass ui;
 	
 	QSqlDatabase _db;
+	QSqlRelationalTableModel* _list_model {nullptr};
 	QSqlRelationalTableModel* _recipe_model {nullptr};
 	QSqlRelationalTableModel* _ingredients_model {nullptr};
 	QSqlRelationalTableModel* _instructions_model {nullptr};

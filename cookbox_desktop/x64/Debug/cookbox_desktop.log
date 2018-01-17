@@ -1,2 +1,7 @@
-﻿  cookbox_desktop.vcxproj -> C:\Documents\Projects\cookbox_desktop\x64\Debug\cookbox_desktop.exe
+﻿  Uic'ing mainwindow.ui...
+  moc_mainwindow.cpp
+  main.cpp
+  mainwindow.cpp
+  Generating Code...
+  cookbox_desktop.vcxproj -> C:\Documents\Projects\cookbox_desktop\x64\Debug\cookbox_desktop.exe
   cookbox_desktop.vcxproj -> C:\Documents\Projects\cookbox_desktop\x64\Debug\cookbox_desktop.pdb (Full PDB)

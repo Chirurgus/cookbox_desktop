@@ -71,7 +71,7 @@ public:
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(list_tableView->sizePolicy().hasHeightForWidth());
         list_tableView->setSizePolicy(sizePolicy);
-        list_tableView->setMinimumSize(QSize(256, 0));
+        list_tableView->setMinimumSize(QSize(512, 0));
         list_tableView->setBaseSize(QSize(256, 0));
 
         horizontalLayout->addWidget(list_tableView);

@@ -1,8 +1,10 @@
 ﻿  Moc'ing mainwindow.h...
+  '"D:\Qt\5.10.0\msvc2015_64\bin\moc.exe"' is not recognized as an internal or external command,
+  operable program or batch file.
   Uic'ing mainwindow.ui...
-  moc_mainwindow.cpp
-  main.cpp
-  mainwindow.cpp
-  Generating Code...
-  cookbox_desktop.vcxproj -> C:\Documents\Projects\cookbox_desktop\x64\Debug\cookbox_desktop.exe
-  cookbox_desktop.vcxproj -> C:\Documents\Projects\cookbox_desktop\x64\Debug\cookbox_desktop.pdb (Full PDB)
+  '"D:\Qt\5.10.0\msvc2015_64\bin\uic.exe"' is not recognized as an internal or external command,
+  operable program or batch file.
+  Rcc'ing mainwindow.qrc...
+  '"D:\Qt\5.10.0\msvc2015_64\bin\rcc.exe"' is not recognized as an internal or external command,
+  operable program or batch file.
+C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppCommon.targets(171,5): error MSB6006: "cmd.exe" exited with code 9009.

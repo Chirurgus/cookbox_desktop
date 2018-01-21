@@ -67,8 +67,14 @@ MainWindow::~MainWindow()
 
 void MainWindow::onAddRecipe()
 {
-	_list_model->insertRow(_list_model->rowCount());
-	_
+	_db.transaction();
+	QSqlQuery* q{new QSqlQuery{"insert into recipe default values",_db}};
+	if (!q->exec()) {
+		_db.rollback();
+		return;
+	}
+	//int last_id {q->lastInsertId().toInt()};
+	_db.commit();
 }
 
 void MainWindow::onRecipeSelected(const QModelIndex& current,const QModelIndex&)

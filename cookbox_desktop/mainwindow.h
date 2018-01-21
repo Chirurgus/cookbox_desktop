@@ -15,10 +15,12 @@ public:
 
 protected slots:
 	void onRecipeSelected(const QModelIndex &current, const QModelIndex &previous);
+	void onAddRecipe();
 
 private:
 	Ui::MainWindowClass ui;
 	
+	int _selected_id {-1};
 	QSqlDatabase _db;
 	QSqlRelationalTableModel* _list_model {nullptr};
 	QSqlRelationalTableModel* _recipe_model {nullptr};

@@ -34,14 +34,27 @@ public:
     QWidget *centralWidget;
     QWidget *horizontalLayoutWidget;
     QHBoxLayout *horizontalLayout;
+    QVBoxLayout *verticalLayout_3;
     QTableView *list_tableView;
+    QHBoxLayout *recipe_horizontalLayout_3;
+    QSpacerItem *horizontalSpacer_12;
+    QPushButton *add_recipe_Button;
     QFrame *line;
     QVBoxLayout *verticalLayout;
     QTableView *recipe_tableView;
+    QHBoxLayout *recipe_horizontalLayout;
+    QSpacerItem *horizontalSpacer_10;
+    QPushButton *recipe_Button;
     QTableView *ingredients_tableView;
+    QHBoxLayout *ingredient_horizontalLayout;
+    QSpacerItem *horizontalSpacer_9;
+    QPushButton *pushButton_9;
     QTableView *instructions_tableView;
+    QHBoxLayout *instruction_horizontalLayout;
+    QSpacerItem *horizontalSpacer_8;
+    QPushButton *pushButton_8;
     QTableView *comments_tableView;
-    QHBoxLayout *horizontalLayout_2;
+    QHBoxLayout *comment_horizontalLayout;
     QSpacerItem *horizontalSpacer;
     QPushButton *pushButton;
     QMenuBar *menuBar;
@@ -52,7 +65,7 @@ public:
     {
         if (MainWindowClass->objectName().isEmpty())
             MainWindowClass->setObjectName(QStringLiteral("MainWindowClass"));
-        MainWindowClass->resize(1464, 850);
+        MainWindowClass->resize(1052, 850);
         centralWidget = new QWidget(MainWindowClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         horizontalLayoutWidget = new QWidget(centralWidget);
@@ -62,19 +75,33 @@ public:
         horizontalLayout->setSpacing(6);
         horizontalLayout->setContentsMargins(11, 11, 11, 11);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        horizontalLayout->setSizeConstraint(QLayout::SetMaximumSize);
+        horizontalLayout->setSizeConstraint(QLayout::SetNoConstraint);
         horizontalLayout->setContentsMargins(0, 0, 0, 0);
+        verticalLayout_3 = new QVBoxLayout();
+        verticalLayout_3->setSpacing(6);
+        verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
         list_tableView = new QTableView(horizontalLayoutWidget);
         list_tableView->setObjectName(QStringLiteral("list_tableView"));
-        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(list_tableView->sizePolicy().hasHeightForWidth());
-        list_tableView->setSizePolicy(sizePolicy);
-        list_tableView->setMinimumSize(QSize(512, 0));
-        list_tableView->setBaseSize(QSize(256, 0));
 
-        horizontalLayout->addWidget(list_tableView);
+        verticalLayout_3->addWidget(list_tableView);
+
+        recipe_horizontalLayout_3 = new QHBoxLayout();
+        recipe_horizontalLayout_3->setSpacing(6);
+        recipe_horizontalLayout_3->setObjectName(QStringLiteral("recipe_horizontalLayout_3"));
+        horizontalSpacer_12 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        recipe_horizontalLayout_3->addItem(horizontalSpacer_12);
+
+        add_recipe_Button = new QPushButton(horizontalLayoutWidget);
+        add_recipe_Button->setObjectName(QStringLiteral("add_recipe_Button"));
+
+        recipe_horizontalLayout_3->addWidget(add_recipe_Button);
+
+
+        verticalLayout_3->addLayout(recipe_horizontalLayout_3);
+
+
+        horizontalLayout->addLayout(verticalLayout_3);
 
         line = new QFrame(horizontalLayoutWidget);
         line->setObjectName(QStringLiteral("line"));
@@ -91,35 +118,80 @@ public:
 
         verticalLayout->addWidget(recipe_tableView);
 
+        recipe_horizontalLayout = new QHBoxLayout();
+        recipe_horizontalLayout->setSpacing(6);
+        recipe_horizontalLayout->setObjectName(QStringLiteral("recipe_horizontalLayout"));
+        horizontalSpacer_10 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        recipe_horizontalLayout->addItem(horizontalSpacer_10);
+
+        recipe_Button = new QPushButton(horizontalLayoutWidget);
+        recipe_Button->setObjectName(QStringLiteral("recipe_Button"));
+
+        recipe_horizontalLayout->addWidget(recipe_Button);
+
+
+        verticalLayout->addLayout(recipe_horizontalLayout);
+
         ingredients_tableView = new QTableView(horizontalLayoutWidget);
         ingredients_tableView->setObjectName(QStringLiteral("ingredients_tableView"));
 
         verticalLayout->addWidget(ingredients_tableView);
+
+        ingredient_horizontalLayout = new QHBoxLayout();
+        ingredient_horizontalLayout->setSpacing(6);
+        ingredient_horizontalLayout->setObjectName(QStringLiteral("ingredient_horizontalLayout"));
+        horizontalSpacer_9 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        ingredient_horizontalLayout->addItem(horizontalSpacer_9);
+
+        pushButton_9 = new QPushButton(horizontalLayoutWidget);
+        pushButton_9->setObjectName(QStringLiteral("pushButton_9"));
+
+        ingredient_horizontalLayout->addWidget(pushButton_9);
+
+
+        verticalLayout->addLayout(ingredient_horizontalLayout);
 
         instructions_tableView = new QTableView(horizontalLayoutWidget);
         instructions_tableView->setObjectName(QStringLiteral("instructions_tableView"));
 
         verticalLayout->addWidget(instructions_tableView);
 
+        instruction_horizontalLayout = new QHBoxLayout();
+        instruction_horizontalLayout->setSpacing(6);
+        instruction_horizontalLayout->setObjectName(QStringLiteral("instruction_horizontalLayout"));
+        horizontalSpacer_8 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        instruction_horizontalLayout->addItem(horizontalSpacer_8);
+
+        pushButton_8 = new QPushButton(horizontalLayoutWidget);
+        pushButton_8->setObjectName(QStringLiteral("pushButton_8"));
+
+        instruction_horizontalLayout->addWidget(pushButton_8);
+
+
+        verticalLayout->addLayout(instruction_horizontalLayout);
+
         comments_tableView = new QTableView(horizontalLayoutWidget);
         comments_tableView->setObjectName(QStringLiteral("comments_tableView"));
 
         verticalLayout->addWidget(comments_tableView);
 
-        horizontalLayout_2 = new QHBoxLayout();
-        horizontalLayout_2->setSpacing(6);
-        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+        comment_horizontalLayout = new QHBoxLayout();
+        comment_horizontalLayout->setSpacing(6);
+        comment_horizontalLayout->setObjectName(QStringLiteral("comment_horizontalLayout"));
         horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        horizontalLayout_2->addItem(horizontalSpacer);
+        comment_horizontalLayout->addItem(horizontalSpacer);
 
         pushButton = new QPushButton(horizontalLayoutWidget);
         pushButton->setObjectName(QStringLiteral("pushButton"));
 
-        horizontalLayout_2->addWidget(pushButton);
+        comment_horizontalLayout->addWidget(pushButton);
 
 
-        verticalLayout->addLayout(horizontalLayout_2);
+        verticalLayout->addLayout(comment_horizontalLayout);
 
 
         horizontalLayout->addLayout(verticalLayout);
@@ -127,7 +199,7 @@ public:
         MainWindowClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindowClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1464, 21));
+        menuBar->setGeometry(QRect(0, 0, 1052, 21));
         MainWindowClass->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindowClass);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -144,7 +216,11 @@ public:
     void retranslateUi(QMainWindow *MainWindowClass)
     {
         MainWindowClass->setWindowTitle(QApplication::translate("MainWindowClass", "MainWindow", nullptr));
-        pushButton->setText(QApplication::translate("MainWindowClass", "PushButton", nullptr));
+        add_recipe_Button->setText(QApplication::translate("MainWindowClass", "Add Recipe", nullptr));
+        recipe_Button->setText(QApplication::translate("MainWindowClass", "Add Recipe", nullptr));
+        pushButton_9->setText(QApplication::translate("MainWindowClass", "Add Ingredient", nullptr));
+        pushButton_8->setText(QApplication::translate("MainWindowClass", "Add Instruction", nullptr));
+        pushButton->setText(QApplication::translate("MainWindowClass", "Add Comment", nullptr));
     } // retranslateUi
 
 };

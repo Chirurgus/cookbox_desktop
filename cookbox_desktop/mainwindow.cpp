@@ -51,6 +51,12 @@ MainWindow::MainWindow(QWidget *parent)
 		msg->exec();
 		return;
 	}
+
+	QObject::connect(ui.add_recipe_Button,
+					 SIGNAL(released()),
+					 this,
+					 SLOT(onAddRecipe())
+	);
 }
 
 MainWindow::~MainWindow()
@@ -59,9 +65,16 @@ MainWindow::~MainWindow()
 	_db.close();
 }
 
+void MainWindow::onAddRecipe()
+{
+	_list_model->insertRow(_list_model->rowCount());
+	_
+}
+
 void MainWindow::onRecipeSelected(const QModelIndex& current,const QModelIndex&)
 {
-	int id {_list_model->record(current.row()).value("id").toInt()};
+	_selected_id = _list_model->record(current.row()).value("id").toInt();
+	int id {_selected_id};
 
 	_recipe_model->setTable("recipe");
 	_recipe_model->setFilter("id = " + QString::number(id));
@@ -78,6 +91,8 @@ void MainWindow::onRecipeSelected(const QModelIndex& current,const QModelIndex&)
 
 	_ingredients_model->setTable("ingredient_list");
 	_ingredients_model->setFilter("recipe_id = " + QString::number(id));
+
+	_ingredients_model->setRelation(4, QSqlRelation {"recipe","id","name"});
 
 	if (!_ingredients_model->select()) {
 		QMessageBox* msg {new QMessageBox {}};

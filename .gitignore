@@ -12,3 +12,4 @@ ipch
 *.suo
 *.xcodeproj
 *.xcworkspace
+*.exe

@@ -4,6 +4,9 @@ Intermediate
 Saved
 ipch
 .vs
+x64
+cookbox_desktop/GeneratedFiles
+cookbox_desktop/x64
 *.VC.db
 *.opensdf
 *.opendb

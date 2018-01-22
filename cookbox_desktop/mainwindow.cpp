@@ -25,8 +25,10 @@ MainWindow::MainWindow(QWidget *parent)
 		return;
 	}
 
+	_list_model->setEditStrategy(QSqlTableModel::OnFieldChange);
 	_list_model->setTable("recipe");
-	_list_model->setHeaderData(0, Qt::Horizontal, "ID");
+	_list_model->setHeaderData(1, Qt::Horizontal, "Name");
+	_list_model->setHeaderData(2, Qt::Horizontal, "Description");
 
 	if (!_list_model->select()) {
 		QMessageBox* msg {new QMessageBox {}};
@@ -37,7 +39,16 @@ MainWindow::MainWindow(QWidget *parent)
 	}
 
 	ui.list_tableView->setModel(_list_model);
+	ui.list_tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+	ui.list_tableView->setColumnHidden(6, true);
+	ui.list_tableView->setColumnHidden(5, true);
+	ui.list_tableView->setColumnHidden(4, true);
+	ui.list_tableView->setColumnHidden(3, true);
+	ui.list_tableView->setColumnHidden(0, true);
 
+
+	//Hide row number column
+	ui.list_tableView->verticalHeader()->setVisible(false);
 	ui.list_tableView->setSelectionBehavior(QAbstractItemView::SelectionBehavior::SelectRows);
 	QItemSelectionModel* selection_model {ui.list_tableView->selectionModel()};
 

@@ -67,14 +67,22 @@ MainWindow::~MainWindow()
 
 void MainWindow::onAddRecipe()
 {
+	/*
 	_db.transaction();
 	QSqlQuery* q{new QSqlQuery{"insert into recipe default values",_db}};
 	if (!q->exec()) {
 		_db.rollback();
 		return;
 	}
-	//int last_id {q->lastInsertId().toInt()};
 	_db.commit();
+	int last_id {q->lastInsertId().toInt()};
+	*/
+	int row{_list_model->rowCount()};
+
+	_list_model->database().transaction();
+	_list_model->insertRow(row);
+	//_list_model->setData(_list_model->index(row,)
+	_list_model->submitAll() ? _list_model->database().commit() : _list_model->database().rollback();
 }
 
 void MainWindow::onRecipeSelected(const QModelIndex& current,const QModelIndex&)

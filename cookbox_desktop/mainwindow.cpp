@@ -1,4 +1,5 @@
 #include <QMessageBox>
+#include <QInputDialog>
 #include <QSqlQueryModel>
 #include <QTableView>
 #include "mainwindow.h"
@@ -67,22 +68,27 @@ MainWindow::~MainWindow()
 
 void MainWindow::onAddRecipe()
 {
-	/*
-	_db.transaction();
-	QSqlQuery* q{new QSqlQuery{"insert into recipe default values",_db}};
-	if (!q->exec()) {
-		_db.rollback();
+	bool ok;
+	QString name{QInputDialog::getText(this, "Add recipe",
+										"Give a new recipe a name.",
+										QLineEdit::Normal, "Recipe name",
+										&ok)};
+	if (!ok) {
 		return;
 	}
-	_db.commit();
-	int last_id {q->lastInsertId().toInt()};
-	*/
 	int row{_list_model->rowCount()};
 
 	_list_model->database().transaction();
+
 	_list_model->insertRow(row);
-	//_list_model->setData(_list_model->index(row,)
-	_list_model->submitAll() ? _list_model->database().commit() : _list_model->database().rollback();
+	_list_model->setData(_list_model->index(row, 1), name);
+
+	if (_list_model->submitAll()) {
+		_list_model->database().commit();
+	}
+	else {
+		_list_model->database().rollback();
+	}
 }
 
 void MainWindow::onRecipeSelected(const QModelIndex& current,const QModelIndex&)

@@ -16,15 +16,18 @@ public:
 protected slots:
 	void onRecipeSelected(const QModelIndex &current, const QModelIndex &previous);
 	void onAddRecipe();
+	void onAddIngredient();
+	void onAddInstruction();
+	void onAddComment();
 
 private:
 	Ui::MainWindowClass ui;
 	
 	int _selected_id {-1};
 	QSqlDatabase _db;
-	QSqlRelationalTableModel* _list_model {nullptr};
-	QSqlRelationalTableModel* _recipe_model {nullptr};
+	QSqlTableModel* _list_model {nullptr};
+	QSqlTableModel* _recipe_model {nullptr};
 	QSqlRelationalTableModel* _ingredients_model {nullptr};
-	QSqlRelationalTableModel* _instructions_model {nullptr};
-	QSqlRelationalTableModel* _comments_model {nullptr};
+	QSqlTableModel* _instructions_model {nullptr};
+	QSqlTableModel* _comments_model {nullptr};
 };

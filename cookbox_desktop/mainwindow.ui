@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1052</width>
-    <height>825</height>
+    <height>984</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -94,7 +94,7 @@
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="recipe_Button">
+           <widget class="QPushButton" name="add_recipe_Button_bis">
             <property name="text">
              <string>Add Recipe</string>
             </property>
@@ -121,7 +121,7 @@
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_9">
+           <widget class="QPushButton" name="add_ingredient_Button">
             <property name="text">
              <string>Add Ingredient</string>
             </property>
@@ -148,7 +148,7 @@
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_8">
+           <widget class="QPushButton" name="add_instruction_Button">
             <property name="text">
              <string>Add Instruction</string>
             </property>
@@ -175,7 +175,7 @@
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton">
+           <widget class="QPushButton" name="add_comment_Button">
             <property name="text">
              <string>Add Comment</string>
             </property>

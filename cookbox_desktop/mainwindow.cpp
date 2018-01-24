@@ -69,6 +69,22 @@ MainWindow::MainWindow(QWidget *parent)
 					 this,
 					 SLOT(onAddRecipe())
 	);
+	QObject::connect(ui.add_ingredient_Button,
+					 SIGNAL(released()),
+					 this,
+					 SLOT(onAddIngredient())
+	);
+	QObject::connect(ui.add_instruction_Button,
+					 SIGNAL(released()),
+					 this,
+					 SLOT(onAddInstruction())
+	);
+	QObject::connect(ui.add_comment_Button,
+					 SIGNAL(released()),
+					 this,
+					 SLOT(onAddComment())
+	);
+	ui.recipe_tableView->setColumnHidden(0, true);
 }
 
 MainWindow::~MainWindow()
@@ -93,12 +109,109 @@ void MainWindow::onAddRecipe()
 
 	_list_model->insertRow(row);
 	_list_model->setData(_list_model->index(row, 1), name);
+	_list_model->setData(_list_model->index(row, 4), 1);
 
 	if (_list_model->submitAll()) {
 		_list_model->database().commit();
 	}
 	else {
 		_list_model->database().rollback();
+
+		QMessageBox* msg {new QMessageBox {}};
+		msg->setText("Could not add recipe."
+			+ _list_model->lastError().text());
+		msg->exec();
+	}
+}
+
+void MainWindow::onAddIngredient()
+{
+	int row{_ingredients_model->rowCount()};
+
+	_ingredients_model->database().transaction();
+
+	_ingredients_model->insertRow(row);
+	_ingredients_model->setData(_ingredients_model->index(row, 0), _selected_id);
+	_ingredients_model->setData(_ingredients_model->index(row, 1), 1);
+	_ingredients_model->setData(_ingredients_model->index(row, 2), "");
+
+	if (_ingredients_model->submitAll()) {
+		_ingredients_model->database().commit();
+	}
+	else {
+		_ingredients_model->database().rollback();
+
+		QMessageBox* msg {new QMessageBox {}};
+		msg->setText("Could not add ingredient."
+			+ _ingredients_model->lastError().text());
+		msg->exec();
+	}
+}
+
+void MainWindow::onAddInstruction()
+{
+	bool ok;
+	QString instruction {QInputDialog::getText(this, "Add an instruction",
+										"Instruction:",
+										QLineEdit::Normal, "",
+										&ok)};
+	if (!ok) {
+		return;
+	}
+	int row{_instructions_model->rowCount()};
+
+	_instructions_model->database().transaction();
+
+	_instructions_model->insertRow(row);
+	_instructions_model->setData(_instructions_model->index(row, 0), _selected_id);
+	_instructions_model->setData(_instructions_model->index(row, 1), row-1);
+	_instructions_model->setData(_instructions_model->index(row, 2), instruction);
+	
+	for (int i {0}; i <= row; ++i) {
+		_instructions_model->setData(_instructions_model->index(i, 1), i);
+	}
+
+	if (_instructions_model->submitAll()) {
+		_instructions_model->database().commit();
+	}
+	else {
+		_instructions_model->database().rollback();
+
+		QMessageBox* msg {new QMessageBox {}};
+		msg->setText("Couldn't add an instruciton"
+			+ _instructions_model->lastError().text());
+		msg->exec();
+	}
+}
+
+void MainWindow::onAddComment()
+{
+	bool ok;
+	QString comment {QInputDialog::getText(this, "Add a comment",
+										"Comment",
+										QLineEdit::Normal, "Comments",
+										&ok)};
+	if (!ok) {
+		return;
+	}
+	int row{_comments_model->rowCount()};
+
+	_comments_model->database().transaction();
+
+	_comments_model->insertRow(row);
+	_comments_model->setData(_comments_model->index(row, 0), _selected_id);
+	_comments_model->setData(_comments_model->index(row, 1), comment);
+
+	if (_comments_model->submitAll()) {
+		_comments_model->database().commit();
+	}
+	else {
+		_comments_model->database().rollback();
+
+		QMessageBox* msg {new QMessageBox {}};
+		msg->setText("Couldn't add a comment: "
+			+ _comments_model->lastError().text());
+		msg->exec();
 	}
 }
 
@@ -123,7 +236,8 @@ void MainWindow::onRecipeSelected(const QModelIndex& current,const QModelIndex&)
 	_ingredients_model->setTable("ingredient_list");
 	_ingredients_model->setFilter("recipe_id = " + QString::number(id));
 
-	_ingredients_model->setRelation(4, QSqlRelation {"recipe","id","name"});
+	//_ingredients_model->setRelation(3, QSqlRelation {"recipe","id","name"});
+	
 
 	if (!_ingredients_model->select()) {
 		QMessageBox* msg {new QMessageBox {}};

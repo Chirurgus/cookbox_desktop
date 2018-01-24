@@ -13,12 +13,16 @@ public:
 	MainWindow(QWidget *parent = Q_NULLPTR);
 	virtual ~MainWindow();
 
+protected:
+	bool eventFilter(QObject* watched, QEvent* event) override;
+
 protected slots:
 	void onRecipeSelected(const QModelIndex &current, const QModelIndex &previous);
 	void onAddRecipe();
 	void onAddIngredient();
 	void onAddInstruction();
 	void onAddComment();
+	void onDeleteKeyPressed();
 
 private:
 	Ui::MainWindowClass ui;

@@ -2,6 +2,7 @@
 #include <QInputDialog>
 #include <QSqlQueryModel>
 #include <QTableView>
+#include <QKeyEvent>
 #include "mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
@@ -52,18 +53,11 @@ MainWindow::MainWindow(QWidget *parent)
 	ui.list_tableView->setSelectionBehavior(QAbstractItemView::SelectionBehavior::SelectRows);
 	QItemSelectionModel* selection_model {ui.list_tableView->selectionModel()};
 
-	auto connection = QObject::connect(selection_model,
-					 SIGNAL(currentRowChanged(const QModelIndex &, const QModelIndex &)),
-					 this,
-					 SLOT(onRecipeSelected(const QModelIndex &, const QModelIndex &))
+	QObject::connect(selection_model,
+				 SIGNAL(currentRowChanged(const QModelIndex &, const QModelIndex &)),
+				 this,
+				 SLOT(onRecipeSelected(const QModelIndex &, const QModelIndex &))
 	);
-	if (!connection) {
-		QMessageBox* msg {new QMessageBox {}};
-		msg->setText("Could not set on Row selection listener");
-		msg->exec();
-		return;
-	}
-
 	QObject::connect(ui.add_recipe_Button,
 					 SIGNAL(released()),
 					 this,
@@ -84,13 +78,36 @@ MainWindow::MainWindow(QWidget *parent)
 					 this,
 					 SLOT(onAddComment())
 	);
-	ui.recipe_tableView->setColumnHidden(0, true);
+
+	QObject::connect(ui.add_recipe_Button_bis,
+					 SIGNAL(released()),
+					 this,
+					 SLOT(onDeleteKeyPressed())
+	);
+
 }
 
 MainWindow::~MainWindow()
 {
 	//TODO!!!
 	_db.close();
+}
+
+bool MainWindow::eventFilter(QObject * watched, QEvent * event)
+{
+	if (event->type() == QEvent::KeyRelease) {
+		QKeyEvent* key {static_cast<QKeyEvent*>(event)};
+		if (key->key() == Qt::Key_Delete) {
+			onDeleteKeyPressed();
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	else {
+		return QMainWindow::eventFilter(watched, event);
+	}
 }
 
 void MainWindow::onAddRecipe()
@@ -213,6 +230,27 @@ void MainWindow::onAddComment()
 			+ _comments_model->lastError().text());
 		msg->exec();
 	}
+}
+
+void MainWindow::onDeleteKeyPressed()
+{
+	auto focused_w {QApplication::focusWidget()};
+	QString message{"Nothing"};
+	if (focused_w == ui.list_tableView) {
+		message = "list";
+	}
+	else if (focused_w == ui.ingredients_tableView) {
+		message = "ingredients";
+	}
+	else if (focused_w == ui.instructions_tableView) {
+		message = "instrucions";
+	}
+	else if (focused_w == ui.comments_tableView) {
+		message = "comments";
+	}
+	QMessageBox* msg {new QMessageBox {}};
+	msg->setText(message);
+	msg->exec();
 }
 
 void MainWindow::onRecipeSelected(const QModelIndex& current,const QModelIndex&)

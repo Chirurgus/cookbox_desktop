@@ -53,6 +53,33 @@ MainWindow::MainWindow(QWidget *parent)
 	ui.list_tableView->setSelectionBehavior(QAbstractItemView::SelectionBehavior::SelectRows);
 	QItemSelectionModel* selection_model {ui.list_tableView->selectionModel()};
 
+	//Hide row number column
+	ui.recipe_tableView->verticalHeader()->setVisible(false);
+	ui.recipe_tableView->setSelectionBehavior(QAbstractItemView::SelectionBehavior::SelectRows);
+
+	ui.recipe_tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+	ui.recipe_tableView->setColumnHidden(0, true);
+
+	//Hide row number column
+	ui.ingredients_tableView->verticalHeader()->setVisible(false);
+	ui.ingredients_tableView->setSelectionBehavior(QAbstractItemView::SelectionBehavior::SelectRows);
+
+	ui.ingredients_tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+	ui.ingredients_tableView->setColumnHidden(0, true);
+
+	//Hide row number column
+	ui.instructions_tableView->verticalHeader()->setVisible(false);
+	ui.instructions_tableView->setSelectionBehavior(QAbstractItemView::SelectionBehavior::SelectRows);
+
+	ui.instructions_tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+	ui.instructions_tableView->setColumnHidden(0, true);
+
+	//Hide row number column
+	ui.comments_tableView->verticalHeader()->setVisible(false);
+	ui.comments_tableView->setSelectionBehavior(QAbstractItemView::SelectionBehavior::SelectRows);
+
+	ui.comments_tableView->setColumnHidden(0, true);
+
 	QObject::connect(selection_model,
 				 SIGNAL(currentRowChanged(const QModelIndex &, const QModelIndex &)),
 				 this,
@@ -78,13 +105,31 @@ MainWindow::MainWindow(QWidget *parent)
 					 this,
 					 SLOT(onAddComment())
 	);
-
 	QObject::connect(ui.add_recipe_Button_bis,
 					 SIGNAL(released()),
 					 this,
 					 SLOT(onDeleteKeyPressed())
 	);
-
+	QObject::connect(ui.delete_recipe_Button,
+					 SIGNAL(released()),
+					 this,
+					 SLOT(onDeleteRecipe())
+	);
+	QObject::connect(ui.delete_ingredient_Button,
+					 SIGNAL(released()),
+					 this,
+					 SLOT(onDeleteIngredient())
+	);
+	QObject::connect(ui.delete_instruction_Button,
+					 SIGNAL(released()),
+					 this,
+					 SLOT(onDeleteInstruction())
+	);
+	QObject::connect(ui.delete_comment_Button,
+					 SIGNAL(released()),
+					 this,
+					 SLOT(onDeleteComment())
+	);
 }
 
 MainWindow::~MainWindow()
@@ -227,6 +272,118 @@ void MainWindow::onAddComment()
 
 		QMessageBox* msg {new QMessageBox {}};
 		msg->setText("Couldn't add a comment: "
+			+ _comments_model->lastError().text());
+		msg->exec();
+	}
+}
+
+void MainWindow::onDeleteRecipe()
+{
+	int row {ui.recipe_tableView->currentIndex().row()};
+	
+	QMessageBox* confirmation {new QMessageBox{}};
+	confirmation->setText("Are you sure you want to delete a recipe?");
+	confirmation->setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+	confirmation->setDefaultButton(QMessageBox::Cancel);
+	int ret{confirmation->exec()};
+	if (ret == QMessageBox::Cancel) {
+		return;
+	}
+
+	/*
+		TODO:	
+	*/
+}
+
+void MainWindow::onDeleteIngredient()
+{
+	int row {ui.ingredients_tableView->currentIndex().row()};
+	
+	QMessageBox* confirmation {new QMessageBox{}};
+	confirmation->setText("Are you sure you want to delete an ingredients?");
+	confirmation->setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+	confirmation->setDefaultButton(QMessageBox::Cancel);
+	int ret{confirmation->exec()};
+	if (ret == QMessageBox::Cancel) {
+		return;
+	}
+
+	_ingredients_model->database().transaction();
+	
+	_ingredients_model->removeRow(row);
+
+	if (_ingredients_model->submitAll()) {
+		_ingredients_model->database().commit();
+	}
+	else {
+		_ingredients_model->database().rollback();
+
+		QMessageBox* msg {new QMessageBox {}};
+		msg->setText("Couldn't delete an ingredients: "
+			+ _ingredients_model->lastError().text());
+		msg->exec();
+	}
+}
+
+void MainWindow::onDeleteInstruction()
+{
+	 int row {ui.instructions_tableView->currentIndex().row()}; 
+ 
+	QMessageBox* confirmation {new QMessageBox{}};
+	confirmation->setText("Are you sure you want to delete a instruction?");
+	confirmation->setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+	confirmation->setDefaultButton(QMessageBox::Cancel);
+	int ret{confirmation->exec()};
+	if (ret == QMessageBox::Cancel) {
+		return;
+	}
+
+	_instructions_model->database().transaction();
+	
+	_instructions_model->removeRow(row);
+
+	for (int i {row}; i < _instructions_model->rowCount(); ++i) {
+		_instructions_model->setData(_instructions_model->index(i, 1), i);
+	}
+
+	if (_instructions_model->submitAll()) {
+		_instructions_model->database().commit();
+	}
+	else {
+		_instructions_model->database().rollback();
+
+		QMessageBox* msg {new QMessageBox {}};
+		msg->setText("Couldn't delete an instruction: "
+			+ _instructions_model->lastError().text());
+		msg->exec();
+	}
+}
+
+void MainWindow::onDeleteComment()
+{
+	int row {ui.comments_tableView->currentIndex().row()}; 
+ 
+	QMessageBox* confirmation {new QMessageBox{}};
+	confirmation->setText("Are you sure you want to delete a comment?");
+	confirmation->setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+	confirmation->setDefaultButton(QMessageBox::Cancel);
+	int ret{confirmation->exec()};
+	if (ret == QMessageBox::Cancel) {
+		return;
+	}
+
+	_comments_model->database().transaction();
+	
+	_comments_model->removeRow(row);
+
+	if (_comments_model->submitAll()) {
+		_comments_model->database().commit();
+	}
+	else {
+		_comments_model->database().rollback();
+
+		QMessageBox* msg {new QMessageBox {}};
+		msg->setText("Couldn't delete a comment: "
 			+ _comments_model->lastError().text());
 		msg->exec();
 	}

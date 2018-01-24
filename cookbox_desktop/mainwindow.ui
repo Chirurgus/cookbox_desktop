@@ -62,6 +62,13 @@
             </property>
            </widget>
           </item>
+          <item>
+           <widget class="QPushButton" name="delete_recipe_Button">
+            <property name="text">
+             <string>Delete Recipe</string>
+            </property>
+           </widget>
+          </item>
          </layout>
         </item>
        </layout>
@@ -100,6 +107,13 @@
             </property>
            </widget>
           </item>
+          <item>
+           <widget class="QPushButton" name="delete_recipe_Button_bis">
+            <property name="text">
+             <string>Delete Recipe</string>
+            </property>
+           </widget>
+          </item>
          </layout>
         </item>
         <item>
@@ -124,6 +138,13 @@
            <widget class="QPushButton" name="add_ingredient_Button">
             <property name="text">
              <string>Add Ingredient</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="delete_ingredient_Button">
+            <property name="text">
+             <string>Delete Ingredient</string>
             </property>
            </widget>
           </item>
@@ -154,6 +175,13 @@
             </property>
            </widget>
           </item>
+          <item>
+           <widget class="QPushButton" name="delete_instruction_Button">
+            <property name="text">
+             <string>Delete Instruction</string>
+            </property>
+           </widget>
+          </item>
          </layout>
         </item>
         <item>
@@ -178,6 +206,13 @@
            <widget class="QPushButton" name="add_comment_Button">
             <property name="text">
              <string>Add Comment</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="delete_comment_Button">
+            <property name="text">
+             <string>Delete Comment</string>
             </property>
            </widget>
           </item>

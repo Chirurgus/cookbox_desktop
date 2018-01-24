@@ -22,6 +22,10 @@ protected slots:
 	void onAddIngredient();
 	void onAddInstruction();
 	void onAddComment();
+	void onDeleteRecipe();
+	void onDeleteIngredient();
+	void onDeleteInstruction();
+	void onDeleteComment();
 	void onDeleteKeyPressed();
 
 private:

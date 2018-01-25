@@ -154,26 +154,19 @@ bool MainWindow::eventFilter(QObject * watched, QEvent * event)
 
 void MainWindow::onAddRecipe()
 {
-	bool ok;
-	QString name{QInputDialog::getText(this, "Add recipe",
-										"Give a new recipe a name.",
-										QLineEdit::Normal, "Recipe name",
-										&ok)};
-	if (!ok) {
-		return;
-	}
 	int row{_list_model->rowCount()};
 
 	_list_model->database().transaction();
 
 	_list_model->insertRow(row);
-	_list_model->setData(_list_model->index(row, 1), name);
+	_list_model->setData(_list_model->index(row, 1), "");
 	_list_model->setData(_list_model->index(row, 4), 1);
 
 	if (_list_model->submitAll()) {
 		_list_model->database().commit();
 
 		ui.list_tableView->scrollToBottom();
+		ui.list_tableView->edit(_list_model->index(row, 1));
 	}
 	else {
 		_list_model->database().rollback();
@@ -200,6 +193,7 @@ void MainWindow::onAddIngredient()
 		_ingredients_model->database().commit();
 
 		ui.ingredients_tableView->scrollToBottom();
+		ui.ingredients_tableView ->edit(_ingredients_model->index(row, 1));
 
 		ui.add_ingredient_Button->setDefault(true);
 	}
@@ -215,14 +209,6 @@ void MainWindow::onAddIngredient()
 
 void MainWindow::onAddInstruction()
 {
-	bool ok;
-	QString instruction {QInputDialog::getText(this, "Add an instruction",
-										"Instruction:",
-										QLineEdit::Normal, "",
-										&ok)};
-	if (!ok) {
-		return;
-	}
 	int row{_instructions_model->rowCount()};
 
 	_instructions_model->database().transaction();
@@ -230,7 +216,7 @@ void MainWindow::onAddInstruction()
 	_instructions_model->insertRow(row);
 	_instructions_model->setData(_instructions_model->index(row, 0), _selected_id);
 	_instructions_model->setData(_instructions_model->index(row, 1), row-1);
-	_instructions_model->setData(_instructions_model->index(row, 2), instruction);
+	_instructions_model->setData(_instructions_model->index(row, 2), "");
 	
 	for (int i {0}; i <= row; ++i) {
 		_instructions_model->setData(_instructions_model->index(i, 1), i);
@@ -240,6 +226,8 @@ void MainWindow::onAddInstruction()
 		_instructions_model->database().commit();
 		
 		ui.instructions_tableView->scrollToBottom();
+		ui.instructions_tableView->edit(_instructions_model->index(row, 2));
+
 		ui.add_instruction_Button->setDefault(true);
 	}
 	else {
@@ -254,26 +242,20 @@ void MainWindow::onAddInstruction()
 
 void MainWindow::onAddComment()
 {
-	bool ok;
-	QString comment {QInputDialog::getText(this, "Add a comment",
-										"Comment",
-										QLineEdit::Normal, "Comments",
-										&ok)};
-	if (!ok) {
-		return;
-	}
 	int row{_comments_model->rowCount()};
 
 	_comments_model->database().transaction();
 
 	_comments_model->insertRow(row);
 	_comments_model->setData(_comments_model->index(row, 0), _selected_id);
-	_comments_model->setData(_comments_model->index(row, 1), comment);
+	_comments_model->setData(_comments_model->index(row, 1), "");
 
 	if (_comments_model->submitAll()) {
 		_comments_model->database().commit();
 
 		ui.comments_tableView->scrollToBottom();
+		ui.comments_tableView ->edit(_comments_model->index(row, 1));
+
 		ui.add_comment_Button->setDefault(true);
 	}
 	else {

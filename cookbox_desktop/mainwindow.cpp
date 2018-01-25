@@ -58,27 +58,24 @@ MainWindow::MainWindow(QWidget *parent)
 	ui.recipe_tableView->setSelectionBehavior(QAbstractItemView::SelectionBehavior::SelectRows);
 
 	ui.recipe_tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-	ui.recipe_tableView->setColumnHidden(0, true);
 
 	//Hide row number column
 	ui.ingredients_tableView->verticalHeader()->setVisible(false);
 	ui.ingredients_tableView->setSelectionBehavior(QAbstractItemView::SelectionBehavior::SelectRows);
 
 	ui.ingredients_tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-	ui.ingredients_tableView->setColumnHidden(0, true);
 
 	//Hide row number column
 	ui.instructions_tableView->verticalHeader()->setVisible(false);
 	ui.instructions_tableView->setSelectionBehavior(QAbstractItemView::SelectionBehavior::SelectRows);
 
 	ui.instructions_tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-	ui.instructions_tableView->setColumnHidden(0, true);
 
 	//Hide row number column
 	ui.comments_tableView->verticalHeader()->setVisible(false);
 	ui.comments_tableView->setSelectionBehavior(QAbstractItemView::SelectionBehavior::SelectRows);
 
-	ui.comments_tableView->setColumnHidden(0, true);
+	ui.comments_tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
 	QObject::connect(selection_model,
 				 SIGNAL(currentRowChanged(const QModelIndex &, const QModelIndex &)),
@@ -427,6 +424,7 @@ void MainWindow::onRecipeSelected(const QModelIndex& current,const QModelIndex&)
 	}
 
 	ui.recipe_tableView->setModel(_recipe_model);
+	ui.recipe_tableView->setColumnHidden(0, true);
 
 	_ingredients_model->setTable("ingredient_list");
 	_ingredients_model->setFilter("recipe_id = " + QString::number(id));
@@ -443,6 +441,7 @@ void MainWindow::onRecipeSelected(const QModelIndex& current,const QModelIndex&)
 	}
 
 	ui.ingredients_tableView->setModel(_ingredients_model);
+	ui.ingredients_tableView->setColumnHidden(0, true);
 
 	_instructions_model->setTable("instruction_list");
 	_instructions_model->setFilter("recipe_id = " + QString::number(id));
@@ -456,6 +455,8 @@ void MainWindow::onRecipeSelected(const QModelIndex& current,const QModelIndex&)
 	}
 	
 	ui.instructions_tableView->setModel(_instructions_model);
+	ui.instructions_tableView->setColumnHidden(0, true);
+	ui.instructions_tableView->setColumnHidden(1, true);
 
 	_comments_model->setTable("comment_list");
 	_comments_model->setFilter("recipe_id = " + QString::number(id));
@@ -467,6 +468,7 @@ void MainWindow::onRecipeSelected(const QModelIndex& current,const QModelIndex&)
 		msg->exec();
 		return;
 	}
-
 	ui.comments_tableView->setModel(_comments_model);
+
+	ui.comments_tableView->setColumnHidden(0, true);
 }

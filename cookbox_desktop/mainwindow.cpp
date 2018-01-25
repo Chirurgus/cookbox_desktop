@@ -172,6 +172,8 @@ void MainWindow::onAddRecipe()
 
 	if (_list_model->submitAll()) {
 		_list_model->database().commit();
+
+		ui.list_tableView->scrollToBottom();
 	}
 	else {
 		_list_model->database().rollback();
@@ -196,6 +198,10 @@ void MainWindow::onAddIngredient()
 
 	if (_ingredients_model->submitAll()) {
 		_ingredients_model->database().commit();
+
+		ui.ingredients_tableView->scrollToBottom();
+
+		ui.add_ingredient_Button->setDefault(true);
 	}
 	else {
 		_ingredients_model->database().rollback();
@@ -232,6 +238,9 @@ void MainWindow::onAddInstruction()
 
 	if (_instructions_model->submitAll()) {
 		_instructions_model->database().commit();
+		
+		ui.instructions_tableView->scrollToBottom();
+		ui.add_instruction_Button->setDefault(true);
 	}
 	else {
 		_instructions_model->database().rollback();
@@ -263,6 +272,9 @@ void MainWindow::onAddComment()
 
 	if (_comments_model->submitAll()) {
 		_comments_model->database().commit();
+
+		ui.comments_tableView->scrollToBottom();
+		ui.add_comment_Button->setDefault(true);
 	}
 	else {
 		_comments_model->database().rollback();

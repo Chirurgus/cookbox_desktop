@@ -51,31 +51,37 @@ MainWindow::MainWindow(QWidget *parent)
 	//Hide row number column
 	ui.list_tableView->verticalHeader()->setVisible(false);
 	ui.list_tableView->setSelectionBehavior(QAbstractItemView::SelectionBehavior::SelectRows);
-	QItemSelectionModel* selection_model {ui.list_tableView->selectionModel()};
+
 
 	//Hide row number column
 	ui.recipe_tableView->verticalHeader()->setVisible(false);
 	ui.recipe_tableView->setSelectionBehavior(QAbstractItemView::SelectionBehavior::SelectRows);
-
+	ui.recipe_tableView->setWordWrap(true);
+	ui.recipe_tableView->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeMode::ResizeToContents);
 	ui.recipe_tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
 	//Hide row number column
 	ui.ingredients_tableView->verticalHeader()->setVisible(false);
 	ui.ingredients_tableView->setSelectionBehavior(QAbstractItemView::SelectionBehavior::SelectRows);
-
+	ui.ingredients_tableView->setWordWrap(true);
+	ui.ingredients_tableView->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeMode::ResizeToContents);
 	ui.ingredients_tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
 	//Hide row number column
 	ui.instructions_tableView->verticalHeader()->setVisible(false);
 	ui.instructions_tableView->setSelectionBehavior(QAbstractItemView::SelectionBehavior::SelectRows);
-
+	ui.instructions_tableView->setWordWrap(true);
+	ui.instructions_tableView->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeMode::ResizeToContents);
 	ui.instructions_tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
 	//Hide row number column
 	ui.comments_tableView->verticalHeader()->setVisible(false);
 	ui.comments_tableView->setSelectionBehavior(QAbstractItemView::SelectionBehavior::SelectRows);
-
+	ui.comments_tableView->setWordWrap(true);
+	ui.comments_tableView->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeMode::ResizeToContents);
 	ui.comments_tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+
+	QItemSelectionModel* selection_model {ui.list_tableView->selectionModel()};
 
 	QObject::connect(selection_model,
 				 SIGNAL(currentRowChanged(const QModelIndex &, const QModelIndex &)),
